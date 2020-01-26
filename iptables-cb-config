@@ -1,0 +1,18 @@
+# Block traffic originating from the following countries by ISO codes
+ISO="af cn kr"
+# Apply firewall rules to inbound traffic on the following device
+#IPTCBDEVICE=eth0
+IPTCBDEVICE=`ip route show | grep default | cut -f 5 -d ' '`
+# Allow traffic from blocked countries inbound from these ports
+ALLOWPORTS=80,443
+# Use the "ipdeny" source for IP / Country mappings - else use geolite2
+DLSOURCE="ipdeny"
+# Allow traffic from this subnet, even if present in country filter
+#  ... note that some mappings erroneously contain class C private 
+#      IP addresses 
+ALLOWSUBNET=192.168.0.0/255.255.0.0
+# Update the country / IP mappings if last download is older than
+#  zone age days
+MAXZONEAGE=30
+# Do not search for ipset or generate rules to use ipset
+IPSET=

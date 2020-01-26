@@ -1,0 +1,18 @@
+[Unit]
+Description=IPv4 firewall country blocker with iptables
+After=iptables.service
+Requires=iptables.service
+ConditionPathExists=/etc/sysconfig/iptables.cb
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/libexec/iptables/iptables-cb.init start
+ExecStop=/usr/libexec/iptables/iptables-cb.init stop
+Environment=BOOTUP=serial
+Environment=CONSOLETYPE=serial
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=basic.target
